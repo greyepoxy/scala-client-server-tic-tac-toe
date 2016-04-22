@@ -2,7 +2,7 @@ package pages
 
 import play.api.Mode._
 import scalatags.Text.all._
-import shared.SharedMessages
+import shared.Api
 
 import scalatags.Text.TypedTag
 
@@ -11,7 +11,7 @@ object HelloWorld {
     div(id:="contents",
       h2("Play and Scala.js share the same message"),
       ul(
-        li("Play shouts out:", em(SharedMessages.itWorks)),
+        li("Play shouts out:", em("nothing")),
         li("Scala.js shouts out:", em(id:="scalajsShoutOut"))
       )
     )

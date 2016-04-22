@@ -1,7 +1,6 @@
 import sbt.Project.projectToRef
 
 name := "tick-tack-toe"
-version := "0.0.1"
 
 lazy val clients = Seq(client)
 lazy val scalaV = "2.11.8"
