@@ -21,7 +21,8 @@ lazy val client = (project in file("client")).settings(
 	persistLauncher in Test := false,
 	libraryDependencies ++= Seq(
 		"org.scala-js" %%% "scalajs-dom" % "0.8.0"
-	)
+	),
+  testFrameworks += new TestFramework("utest.runner.Framework")
 ).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
 	dependsOn(sharedJs)
 
@@ -32,8 +33,10 @@ lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).
 		libraryDependencies ++= Seq(
 			"com.lihaoyi" %%% "scalatags" % "0.4.6",
 			"com.lihaoyi" %%% "upickle" % "0.2.7",
-			"com.lihaoyi" %%% "autowire" % "0.2.5"
-		)
+			"com.lihaoyi" %%% "autowire" % "0.2.5",
+			"com.lihaoyi" %%% "utest" % "0.4.3"
+		),
+    testFrameworks += new TestFramework("utest.runner.Framework")
 	).jsConfigure(_ enablePlugins ScalaJSPlay)
 
 lazy val sharedJvm = shared.jvm

@@ -23,7 +23,10 @@ object Index extends js.JSApp {
     def update() = Ajaxer[Api].randomNum().call().onSuccess {
       case value => elementToUpdate.textContent = value.toString()
     }
-    elementToUpdate.textContent = "waiting for a value"
+    elementToUpdate.textContent = getWaitingString
     update()
+  }
+  def getWaitingString(): String = {
+    "waiting for a value"
   }
 }
