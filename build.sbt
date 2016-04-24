@@ -5,15 +5,18 @@ name := "tick-tack-toe"
 lazy val clients = Seq(client)
 lazy val scalaV = "2.11.8"
 
+scalaJSUseRhino in Global := false
+
 lazy val server = (project in file("server")).settings(
 	scalaVersion := scalaV,
 	scalaJSProjects := clients,
 	pipelineStages := Seq(scalaJSProd, gzip),
 	libraryDependencies ++= Seq(
-	)
+	),
+  testFrameworks += new TestFramework("utest.runner.Framework")
 ).enablePlugins(PlayScala).
-	aggregate(clients.map(projectToRef): _*).
-	dependsOn(sharedJvm)
+  aggregate(projectToRef(sharedJvm)).
+  dependsOn(sharedJvm)
 
 lazy val client = (project in file("client")).settings(
 	scalaVersion := scalaV,
@@ -24,7 +27,8 @@ lazy val client = (project in file("client")).settings(
 	),
   testFrameworks += new TestFramework("utest.runner.Framework")
 ).enablePlugins(ScalaJSPlugin, ScalaJSPlay).
-	dependsOn(sharedJs)
+  aggregate(projectToRef(sharedJs)).
+  dependsOn(sharedJs)
 
 
 lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).
@@ -35,7 +39,7 @@ lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).
 			"com.lihaoyi" %%% "upickle" % "0.2.7",
 			"com.lihaoyi" %%% "autowire" % "0.2.5",
 			"com.lihaoyi" %%% "utest" % "0.4.3"
-		),
+    ),
     testFrameworks += new TestFramework("utest.runner.Framework")
 	).jsConfigure(_ enablePlugins ScalaJSPlay)
 

@@ -4,7 +4,7 @@ import utest._
 
 object IndexTestSuite extends TestSuite {
   val tests = this{
-    'A-{
+    "WaitingStringShouldBeCorrect"-{
       assert(Index.getWaitingString == "waiting for a value")
     }
   }

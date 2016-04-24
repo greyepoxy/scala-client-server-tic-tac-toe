@@ -2,7 +2,6 @@ package pages
 
 import play.api.Mode._
 import scalatags.Text.all._
-import shared.Api
 
 import scalatags.Text.TypedTag
 
@@ -49,5 +48,4 @@ object HelloWorld {
   def launcher(projectName: String) = {
     script(src := s"/assets/${projectName.toLowerCase}-launcher.js", `type` := "text/javascript")
   }
-
 }
